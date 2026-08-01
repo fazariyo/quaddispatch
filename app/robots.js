@@ -1,5 +1,8 @@
 import siteConfig from '@/lib/siteConfig';
 
+// output: 'export' requires metadata routes to declare themselves static.
+export const dynamic = 'force-static';
+
 /** Generates /robots.txt and points crawlers at the sitemap. */
 export default function robots() {
   return {
@@ -7,8 +10,6 @@ export default function robots() {
       {
         userAgent: '*',
         allow: '/',
-        // The form endpoints have nothing to index.
-        disallow: ['/api/'],
       },
     ],
     sitemap: `${siteConfig.url}/sitemap.xml`,

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import submitForm from '@/lib/submitForm';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -61,15 +62,10 @@ export default function ContactForm() {
 
     setStatus('sending');
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+      await submitForm({
+        subject: `Website message — ${values.name}`,
+        values,
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || 'Something went wrong on our end.');
-      }
       setStatus('done');
     } catch (err) {
       setStatus('idle');

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { truckTypes } from '@/lib/pricing';
+import submitForm from '@/lib/submitForm';
 
 const TRAILER_SIZES = [
   '48 ft',
@@ -88,15 +89,10 @@ export default function CarrierSetupForm() {
 
     setStatus('sending');
     try {
-      const res = await fetch('/api/carrier-setup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+      await submitForm({
+        subject: `Carrier setup — ${values.companyName}`,
+        values,
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || 'Something went wrong on our end.');
-      }
       setStatus('done');
     } catch (err) {
       setStatus('idle');
