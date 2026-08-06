@@ -1,11 +1,18 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import submitForm from '@/lib/submitForm';
+import siteConfig from '@/lib/siteConfig';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const ZIP_RE = /^\d{5}(-\d{4})?$/;
 
-const EMPTY = { name: '', email: '', phone: '', message: '' };
+const EMPTY = { name: '', email: '', phone: '', zip: '', message: '', smsConsent: false };
+
+// Validated keys, in tab order — drives which field gets focused on a failed
+// submit. smsConsent is deliberately absent: it is recorded, never required.
+const FIELDS = ['name', 'email', 'phone', 'zip', 'message'];
 
 function validate(values) {
   const errors = {};
@@ -17,6 +24,9 @@ function validate(values) {
   }
   if (values.phone.trim() && (values.phone.match(/\d/g) || []).length < 10) {
     errors.phone = 'Enter a full phone number including area code.';
+  }
+  if (values.zip.trim() && !ZIP_RE.test(values.zip.trim())) {
+    errors.zip = 'Use a 5-digit ZIP, or ZIP+4.';
   }
   if (!values.message.trim()) {
     errors.message = 'Tell us how we can help.';
@@ -54,8 +64,8 @@ export default function ContactForm() {
     const found = validate(values);
     setErrors(found);
     if (Object.keys(found).length) {
-      setTouched(Object.fromEntries(Object.keys(EMPTY).map((k) => [k, true])));
-      const firstBad = Object.keys(EMPTY).find((key) => found[key]);
+      setTouched(Object.fromEntries(FIELDS.map((k) => [k, true])));
+      const firstBad = FIELDS.find((key) => found[key]);
       if (firstBad) document.getElementById(`c-${firstBad}`)?.focus();
       return;
     }
@@ -64,7 +74,7 @@ export default function ContactForm() {
     try {
       await submitForm({
         subject: `Website message — ${values.name}`,
-        values,
+        values: { ...values, smsConsent: values.smsConsent ? 'Yes' : 'No' },
       });
       setStatus('done');
     } catch (err) {
@@ -179,6 +189,30 @@ export default function ContactForm() {
             )}
           </div>
 
+          <div className={`field${invalid('zip')}`}>
+            <label htmlFor="c-zip">ZIP Code</label>
+            <input
+              id="c-zip"
+              name="zip"
+              inputMode="numeric"
+              value={values.zip}
+              onChange={update('zip')}
+              onBlur={blur('zip')}
+              aria-invalid={Boolean(invalid('zip'))}
+              aria-describedby={invalid('zip') ? 'c-zip-msg' : 'c-zip-hint'}
+              autoComplete="postal-code"
+            />
+            {invalid('zip') ? (
+              <span className="msg" id="c-zip-msg">
+                {errors.zip}
+              </span>
+            ) : (
+              <span className="hint" id="c-zip-hint">
+                Where the truck is based.
+              </span>
+            )}
+          </div>
+
           <div className={`field full${invalid('message')}`}>
             <label htmlFor="c-message">
               Message <span className="req">*</span>
@@ -200,6 +234,25 @@ export default function ContactForm() {
             ) : null}
           </div>
         </div>
+
+        <label className="consent" htmlFor="c-sms">
+          <input
+            id="c-sms"
+            name="smsConsent"
+            type="checkbox"
+            checked={values.smsConsent}
+            onChange={(event) => setValues({ ...values, smsConsent: event.target.checked })}
+          />
+          <span>
+            Text me about my loads. You agree to receive SMS messages from{' '}
+            {siteConfig.brand.fullName} about load pickups, deliveries and dispatch updates. Reply
+            STOP to opt out at any time or HELP for help, or call{' '}
+            <a href={siteConfig.phone.href}>{siteConfig.phone.display}</a>. Message and data rates
+            may apply and message frequency varies. See our{' '}
+            <Link href="/terms-of-service">Terms of Service</Link> and{' '}
+            <Link href="/privacy-policy">Privacy Policy</Link>.
+          </span>
+        </label>
 
         <div className="form-actions">
           <button type="submit" className="btn btn-solid" disabled={status === 'sending'}>

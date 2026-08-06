@@ -15,6 +15,7 @@ export const metadata = pageMetadata({
 
 export default function ContactUsPage() {
   const { phone, email, address, hours, supportNote } = siteConfig;
+  const mapQuery = encodeURIComponent(`${address.line1} ${address.line2}`);
 
   return (
     <main>
@@ -25,6 +26,19 @@ export default function ContactUsPage() {
       />
 
       <section className="section on-paper">
+        <div className="wrap">
+          <Reveal className="sec-head center">
+            <span className="eyebrow" style={{ justifyContent: 'center' }}>
+              Onboard With Us
+            </span>
+            <h2 className="h-disp">Tell Us What You Run</h2>
+            <p>
+              We don&apos;t sign clients, we build partnerships — your success is ours. Send the
+              details below and a dispatcher will come back to you with the lanes and the numbers.
+            </p>
+          </Reveal>
+        </div>
+
         <div className="wrap contact-grid">
           {/* ---- details + hours ---- */}
           <Reveal>
@@ -80,6 +94,45 @@ export default function ContactUsPage() {
           {/* ---- message form ---- */}
           <Reveal>
             <ContactForm />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="section on-dark map-section">
+        <div className="wrap">
+          <Reveal className="sec-head center">
+            <span className="eyebrow" style={{ justifyContent: 'center' }}>
+              Find Us
+            </span>
+            <h2 className="h-disp">Get In Touch With Us</h2>
+            <p>
+              The office is in Sheridan, Wyoming — but dispatch runs wherever your truck does.
+            </p>
+          </Reveal>
+
+          <Reveal className="map-frame">
+            {/*
+             * Google's keyless embed endpoint: no API key to leak into a static
+             * bundle, and it needs no client-side JS of ours.
+             */}
+            <iframe
+              src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+              title={`${siteConfig.brand.fullName} office — ${address.line1} ${address.line2}`}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </Reveal>
+
+          <Reveal className="center map-note">
+            <a
+              className="svc-link"
+              href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open In Google Maps <span className="arr">→</span>
+            </a>
           </Reveal>
         </div>
       </section>
