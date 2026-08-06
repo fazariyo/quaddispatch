@@ -15,6 +15,9 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+env:
+  SITE_URL: https://fazariyo.github.io/quaddispatch
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,11 +36,16 @@ jobs:
           # Served from https://fazariyo.github.io/quaddispatch, so every asset
           # and canonical URL carries the /quaddispatch prefix.
           NEXT_PUBLIC_BASE_PATH: /quaddispatch
-          NEXT_PUBLIC_SITE_URL: https://fazariyo.github.io/quaddispatch
+          NEXT_PUBLIC_SITE_URL: ${{ env.SITE_URL }}
           # Settings > Secrets and variables > Actions > Variables.
           # Without it the forms render but refuse to send.
           NEXT_PUBLIC_WEB3FORMS_KEY: ${{ vars.WEB3FORMS_KEY }}
         run: npm run build
+
+      # Lets the deploy job tell whether the live site is actually serving this
+      # commit — see the wait step below.
+      - name: Stamp the build
+        run: echo "${{ github.sha }}" > out/version.txt
 
       # enablement turns Pages on (source: GitHub Actions) the first time this
       # runs, so the repo needs no manual setup in Settings.
@@ -56,9 +64,25 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # Pages routinely takes longer to publish this site than deploy-pages will
+      # wait — 600000 ms is a hard maximum, a larger value is clamped — so the
+      # action aborts with "Timeout reached, aborting!" while the deployment goes
+      # on to succeed minutes later. Its verdict is therefore advisory; the wait
+      # step below is what decides whether this job passes.
       - id: deployment
+        continue-on-error: true
         uses: actions/deploy-pages@v5
-        with:
-          # The v4 run on this repo sat on the default 10 minutes and aborted
-          # while the Pages backend was still working. 20 gives it room.
-          timeout: 1200000
+
+      - name: Wait for the live site to serve this commit
+        run: |
+          for i in $(seq 1 60); do
+            live=$(curl -fsS "$SITE_URL/version.txt?cb=$i" 2>/dev/null | tr -d '[:space:]' || true)
+            if [ "$live" = "$GITHUB_SHA" ]; then
+              echo "Published after ~$((i * 20))s: $SITE_URL"
+              exit 0
+            fi
+            echo "attempt $i: serving '${live:-nothing}', want '$GITHUB_SHA'"
+            sleep 20
+          done
+          echo "::error::Site never served $GITHUB_SHA — deployment really did fail."
+          exit 1
