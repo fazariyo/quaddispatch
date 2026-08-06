@@ -1,11 +1,15 @@
+import Image from 'next/image';
 import Reveal from '@/components/Reveal';
 import siteConfig from '@/lib/siteConfig';
+import mountainPass from '@/assets/photos/mountain-pass.webp';
 
 export default function AboutStrip() {
   const { phone } = siteConfig;
 
   return (
     <section className="section about" id="quote">
+      <Image className="about-photo" src={mountainPass} alt="" sizes="100vw" />
+
       <Reveal className="wrap">
         <span className="eyebrow" style={{ justifyContent: 'center' }}>
           About Us

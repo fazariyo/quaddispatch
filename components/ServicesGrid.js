@@ -1,9 +1,16 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
+import assigningLoads from '@/assets/photos/svc-assigning-loads.webp';
+import billing from '@/assets/photos/svc-billing.webp';
+import driverResponse from '@/assets/photos/svc-driver-response.webp';
+import findingLoads from '@/assets/photos/svc-finding-loads.webp';
 
 const SERVICES = [
   {
     title: 'Finding Loads',
+    photo: findingLoads,
+    alt: 'Boxes being loaded from a van at a dock',
     body: 'We scan the top load boards and lean on direct broker relationships to lock in the best-paying freight on your lanes.',
     icon: (
       <svg viewBox="0 0 24 24">
@@ -15,6 +22,8 @@ const SERVICES = [
   },
   {
     title: 'Assigning Loads',
+    photo: assigningLoads,
+    alt: 'Tractor-trailer loaded with palletised freight on the highway',
     body: 'Your dispatcher matches every load to your truck, your schedule, and your preferred home time — then handles setup and confirmation.',
     icon: (
       <svg viewBox="0 0 24 24">
@@ -26,6 +35,8 @@ const SERVICES = [
   },
   {
     title: 'Billing, Invoicing & Factoring',
+    photo: billing,
+    alt: 'Cash and an invoice changing hands',
     body: 'We prepare the paperwork, submit invoices, and coordinate with your factoring company — so you get paid without the desk work.',
     icon: (
       <svg viewBox="0 0 24 24">
@@ -37,6 +48,8 @@ const SERVICES = [
   },
   {
     title: 'Driver Response Unit',
+    photo: driverResponse,
+    alt: 'Dispatcher on the phone in a truck cab',
     body: 'Breakdown, detention, or trouble at the dock? Our response team is one call away — around the clock, every day of the year.',
     icon: (
       <svg viewBox="0 0 24 24">
@@ -60,6 +73,12 @@ export default function ServicesGrid() {
         <div className="svc-grid">
           {SERVICES.map((service) => (
             <Reveal as="article" className="svc-card" key={service.title}>
+              <Image
+                className="svc-media"
+                src={service.photo}
+                alt={service.alt}
+                sizes="(max-width:560px) 92vw, (max-width:1024px) 46vw, 24vw"
+              />
               <div className="svc-icon">{service.icon}</div>
               <h3>{service.title}</h3>
               <p>{service.body}</p>

@@ -1,9 +1,18 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
+import highway from '@/assets/photos/highway-night.webp';
 
 export default function Hero() {
   return (
     <section className="hero">
+      {/*
+       * Photographic backdrop under the existing gradient. priority because it
+       * is the largest-contentful paint on the landing page; the scrim in
+       * .hero::after is what keeps the headline legible over it.
+       */}
+      <Image className="hero-photo" src={highway} alt="" priority sizes="100vw" />
+
       <div className="wrap hero-inner">
         <Reveal as="p" className="hero-eyebrow">
           24/7 Truck Dispatch — Coast to Coast
