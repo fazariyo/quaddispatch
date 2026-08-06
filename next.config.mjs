@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 
 /*
- * The site is served from https://fazariyo.github.io/quaddispatch, so every
- * route and asset needs the /quaddispatch prefix. Moving to a custom domain at
- * the root later is a one-liner: build with NEXT_PUBLIC_BASE_PATH= (empty).
- *
- * basePath already prefixes _next/static for us, so no assetPrefix is needed —
- * setting both is redundant.
+ * The site is served from https://quaddispatch.com at its root, so no path
+ * prefix. It used to live at https://fazariyo.github.io/quaddispatch, where
+ * every route and asset needed a /quaddispatch prefix; that URL now redirects
+ * to the domain. Set NEXT_PUBLIC_BASE_PATH to go back to a subpath — and note
+ * that a wrong prefix here 404s every asset, since basePath rewrites the URLs
+ * inside the HTML but not where the files land in out/.
  */
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '/quaddispatch';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 const nextConfig = {
   reactStrictMode: true,

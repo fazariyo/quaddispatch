@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SITE_URL: https://fazariyo.github.io/quaddispatch
+  SITE_URL: https://quaddispatch.com
 
 jobs:
   build:
@@ -33,9 +33,11 @@ jobs:
 
       - name: Build static export
         env:
-          # Served from https://fazariyo.github.io/quaddispatch, so every asset
-          # and canonical URL carries the /quaddispatch prefix.
-          NEXT_PUBLIC_BASE_PATH: /quaddispatch
+          # Served from the custom domain at its root, so no path prefix: the
+          # /quaddispatch prefix this used to carry belongs to the github.io URL,
+          # which now redirects to the domain. An empty value is deliberate —
+          # next.config.mjs only falls back when the variable is unset.
+          NEXT_PUBLIC_BASE_PATH: ''
           NEXT_PUBLIC_SITE_URL: ${{ env.SITE_URL }}
           # Settings > Secrets and variables > Actions > Variables.
           # Without it the forms render but refuse to send.
