@@ -9,7 +9,7 @@ import { pageMetadata } from '@/lib/metadata';
 export const metadata = pageMetadata({
   title: 'Carrier Setup',
   description:
-    'Start dispatch with Quad Dispatchers. Send your MC authority, W-9 and certificate of insurance and a dedicated dispatcher will be booking your lanes within one business day.',
+    'Start dispatch with Quad Dispatch. Send your MC authority, W-9 and certificate of insurance and a dedicated dispatcher will be booking your lanes within one business day.',
   path: '/carrier-setup',
 });
 

@@ -9,7 +9,7 @@ export default function WhoWeAre() {
           <span className="eyebrow">Who We Are</span>
           <h2 className="h-disp">Your Logistics Solution Provider</h2>
           <p>
-            Quad Dispatchers pairs every carrier with a seasoned dispatcher who handles the details
+            Quad Dispatch pairs every carrier with a seasoned dispatcher who handles the details
             with speed and accuracy — and works to earn your trust on every single haul. Our team is
             on call 24/7, so support never stops: nights, weekends, or holidays. Think of us as your
             single point of contact for everything logistics. One call covers it all.

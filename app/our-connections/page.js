@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/metadata';
 export const metadata = pageMetadata({
   title: 'Our Connections',
   description:
-    'The load boards, broker networks and direct shipper relationships Quad Dispatchers works every day to keep carriers loaded on high-paying lanes.',
+    'The load boards, broker networks and direct shipper relationships Quad Dispatch works every day to keep carriers loaded on high-paying lanes.',
   path: '/our-connections',
 });
 

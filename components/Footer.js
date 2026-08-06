@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import BrandMark from '@/components/BrandMark';
+import BrandBadge from '@/components/BrandBadge';
 import CurrentYear from '@/components/CurrentYear';
 import { FOOTER_LINKS, FOOTER_LEGAL_LINKS, FOOTER_SERVICE_LINKS } from '@/lib/navigation';
 import siteConfig from '@/lib/siteConfig';
@@ -22,7 +22,7 @@ export default function Footer() {
         <div className="ft-grid">
           <div className="ft-col ft-brand">
             <Link className="brand" href="/" aria-label={`${brand.fullName} — home`}>
-              <BrandMark />
+              <BrandBadge />
               <span>
                 <span className="brand-name" style={{ color: '#fff' }}>
                   {brand.nameLead} <span>{brand.nameAccent}</span>

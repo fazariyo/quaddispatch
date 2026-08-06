@@ -29,6 +29,8 @@ const inter = Inter({
   adjustFontFallback: false,
 });
 
+const SHARE_IMAGE_ALT = `${siteConfig.brand.fullName} — 24/7 truck dispatch services`;
+
 export const metadata = {
   // Makes every relative URL below (canonical, OG, sitemap) absolute.
   metadataBase: new URL(siteConfig.url),
@@ -68,15 +70,15 @@ export const metadata = {
     siteName: siteConfig.brand.fullName,
     title: siteConfig.defaultTitle,
     description: siteConfig.defaultDescription,
-    // og:image comes from app/opengraph-image.png via the file convention —
-    // Next emits the url/width/height/type tags itself. Declaring images here
-    // too would duplicate them.
+    // Declared explicitly: the card is built by the route handler at
+    // app/opengraph-image.png/route.js, not the metadata file convention.
+    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, type: 'image/png', alt: SHARE_IMAGE_ALT }],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.defaultTitle,
     description: siteConfig.defaultDescription,
-    // twitter:image likewise comes from app/twitter-image.png.
+    images: [{ url: '/twitter-image.png', width: 1200, height: 630, type: 'image/png', alt: SHARE_IMAGE_ALT }],
   },
 };
 

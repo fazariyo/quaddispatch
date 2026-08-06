@@ -12,7 +12,7 @@ export default function Hero() {
           Keep On <em>Trucking</em>
         </Reveal>
         <Reveal as="p">
-          Quad Dispatchers keeps your wheels turning with top-paying freight, full back-office
+          Quad Dispatch keeps your wheels turning with top-paying freight, full back-office
           support, and a dedicated dispatcher who answers — day or night.
         </Reveal>
         <Reveal className="hero-btns">

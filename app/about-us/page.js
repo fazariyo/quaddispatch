@@ -9,7 +9,7 @@ import { pageMetadata } from '@/lib/metadata';
 export const metadata = pageMetadata({
   title: 'About Us',
   description:
-    'Quad Dispatchers is an independent truck dispatch service for owner-operators and small fleets — seven years of lanes, paperwork and 24/7 support behind every load.',
+    'Quad Dispatch is an independent truck dispatch service for owner-operators and small fleets — seven years of lanes, paperwork and 24/7 support behind every load.',
   path: '/about-us',
 });
 
@@ -72,7 +72,7 @@ export default function AboutUsPage() {
             <span className="eyebrow">Our Story</span>
             <h2 className="h-disp">Seven Years Of Lanes And Late Nights</h2>
             <p>
-              Quad Dispatchers started with one dispatcher, one laptop and a handful of
+              Quad Dispatch started with one dispatcher, one laptop and a handful of
               owner-operators who were tired of being treated like a truck number. Word travelled
               the way it does in this business — one driver told another.
             </p>

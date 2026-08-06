@@ -6,7 +6,7 @@ import { pageMetadata } from '@/lib/metadata';
 export const metadata = pageMetadata({
   title: 'Privacy Policy',
   description:
-    'How Quad Dispatchers collects, uses, shares and protects the information you provide through this website and during carrier onboarding.',
+    'How Quad Dispatch collects, uses, shares and protects the information you provide through this website and during carrier onboarding.',
   path: '/privacy-policy',
 });
 

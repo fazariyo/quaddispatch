@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/metadata';
 export const metadata = pageMetadata({
   title: 'Terms of Service',
   description:
-    'The terms governing use of the Quad Dispatchers website and our truck dispatch services for motor carriers.',
+    'The terms governing use of the Quad Dispatch website and our truck dispatch services for motor carriers.',
   path: '/terms-of-service',
 });
 

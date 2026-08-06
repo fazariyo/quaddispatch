@@ -9,7 +9,7 @@ import { pageMetadata } from '@/lib/metadata';
 export const metadata = pageMetadata({
   title: 'Contact Us',
   description:
-    'Reach Quad Dispatchers any hour — the dispatch desk is staffed 24/7/365. Call, email, or send a message and a dispatcher will get straight back to you.',
+    'Reach Quad Dispatch any hour — the dispatch desk is staffed 24/7/365. Call, email, or send a message and a dispatcher will get straight back to you.',
   path: '/contact-us',
 });
 

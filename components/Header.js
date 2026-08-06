@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import BrandMark from '@/components/BrandMark';
+import BrandBadge from '@/components/BrandBadge';
 import { NAV_LINKS } from '@/lib/navigation';
 import siteConfig from '@/lib/siteConfig';
 
@@ -32,7 +32,7 @@ export default function Header() {
     <header className={`header${scrolled ? ' scrolled' : ''}`} id="header">
       <div className="wrap">
         <Link className="brand" href="/" aria-label={`${brand.fullName} — home`}>
-          <BrandMark />
+          <BrandBadge />
           <span>
             <span className="brand-name">
               {brand.nameLead} <span>{brand.nameAccent}</span>

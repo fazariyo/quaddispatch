@@ -15,13 +15,13 @@ export default function WhyUs() {
         <Reveal>
           <span className="eyebrow">The Difference</span>
           <h2 className="h-disp">
-            Why <em>Quad Dispatchers</em>?
+            Why <em>Quad Dispatch</em>?
           </h2>
           <p>
             With 7+ years of hands-on dispatch experience, we know exactly where your truck type
             earns the most — and we keep you loaded on those lanes. Around-the-clock support and a
             dedicated dispatcher cut the paperwork, kill the dead-head miles, and keep your
-            operation stress-free. Join Quad Dispatchers and feel the difference a real dispatch
+            operation stress-free. Join Quad Dispatch and feel the difference a real dispatch
             partner makes for your bottom line.
           </p>
           <Link className="btn btn-solid" href="/carrier-setup" id="quote-btn">
