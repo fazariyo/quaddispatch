@@ -70,8 +70,13 @@ export const metadata = {
     siteName: siteConfig.brand.fullName,
     title: siteConfig.defaultTitle,
     description: siteConfig.defaultDescription,
-    // Declared explicitly: the card is built by the route handler at
-    // app/opengraph-image.png/route.js, not the metadata file convention.
+    /*
+     * Declared rather than left to the file convention, even though the PNGs
+     * sit in app/. The convention prepends basePath to a URL that metadataBase
+     * already ends with, so og:image came out as /quaddispatch/quaddispatch/…
+     * Naming the path here resolves it against metadataBase exactly once.
+     * Regenerate the card itself with `npm run share-card`.
+     */
     images: [{ url: '/opengraph-image.png', width: 1200, height: 630, type: 'image/png', alt: SHARE_IMAGE_ALT }],
   },
   twitter: {
